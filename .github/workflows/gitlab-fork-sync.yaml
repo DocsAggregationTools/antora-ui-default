@@ -1,0 +1,22 @@
+on:
+  schedule:
+    - cron:  '30 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  gitlab_fork_sync:
+    runs-on: ubuntu-latest
+    name: gitlab fork sync
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+          token: ${{ secrets.GITLAB_SYNC }}
+      - run: git remote -v
+      - run: git remote add gitlab https://gitlab.com/antora/antora-ui-default.git
+      - run: git remote -v
+      - run: git pull gitlab master
+      - run: git config --global user.email "taojue2009@163.com"
+      - run: git config --global user.name "weibiansanjue"
+      - run: git push -u origin master
