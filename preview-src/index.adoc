@@ -143,6 +143,23 @@ Tab C::
 
 There you have it.
 
+tabs sync
+add page attribute `:tabs-sync-option:`
+
+:tabs-sync-option:
+
+[tabs,sync-group-id=group-1]
+====
+Tab A:: Triggers selection of Tab A in fourth tabset.
+Tab B:: Triggers selection of Tab B in fourth tabset.
+====
+
+[tabs,sync-group-id=group-1]
+====
+Tab A:: Triggers selection of Tab A in third tabset.
+Tab B:: Triggers selection of Tab B in third tabset.
+====
+
 === Some Code
 
 How about some code?
