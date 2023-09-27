@@ -1,0 +1,37 @@
+name: release
+on:
+  push:
+    tags:
+      - '*'
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+          token: ${{ secrets.GITLAB_SYNC }}
+          fetch-depth: 2
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install
+      - name: bundle
+        run: npx gulp bundle
+      - name: release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITLAB_SYNC }}
+        with:
+          token: ${{ secrets.GITLAB_SYNC }}
+          files: build/ui-bundle.zip
