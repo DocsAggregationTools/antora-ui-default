@@ -23,6 +23,19 @@
     menuPanel.scrollTop = 0
   }
 
+  menuPanel.querySelector('.nav-menu-toggle').addEventListener('click', function () {
+    var collapse = !this.classList.toggle('is-active')
+    find(menuPanel, '.nav-item > .nav-item-toggle').forEach(function (btn) {
+      collapse ? btn.parentElement.classList.remove('is-active') : btn.parentElement.classList.add('is-active')
+    })
+    if (currentPageItem) {
+      if (collapse) activateCurrentPath(currentPageItem)
+      scrollItemToMidpoint(menuPanel, currentPageItem)
+    } else {
+      menuPanel.scrollTop = 0
+    }
+  })
+
   find(menuPanel, '.nav-item-toggle').forEach(function (btn) {
     var li = btn.parentElement
     btn.addEventListener('click', toggleActive.bind(li))
